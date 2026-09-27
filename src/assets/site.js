@@ -8,6 +8,7 @@
       nav.classList.toggle('open', open); btn.classList.toggle('open', open);
       btn.setAttribute('aria-expanded', String(open));
       btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      const lbl = btn.querySelector('span'); if (lbl) lbl.textContent = open ? 'Close' : 'Menu';
     };
     btn.addEventListener('click', () => set(!nav.classList.contains('open')));
     nav.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });

@@ -19,7 +19,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
-body{margin:0;font-family:Inter,"Helvetica Neue",Helvetica,Arial,sans-serif;color:var(--text);background:var(--white);line-height:1.6;font-size:16px;overflow-x:hidden}
+body{margin:0;font-family:Inter,"Helvetica Neue",Helvetica,Arial,sans-serif;color:var(--text);background:var(--white);line-height:1.6;font-size:16px;overflow-x:clip}
 img{max-width:100%;display:block}
 a{color:var(--red-d)}
 a:hover{color:var(--red-dd)}
@@ -42,29 +42,34 @@ p{margin:0}
 .util .soc a{opacity:.85}
 .util .soc a:hover{opacity:1;color:#fff}
 .util .tag{color:#cfcfcf;font-weight:500}
-.site-head{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
-.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:24px}
-.logo img{width:236px;height:auto}
-.nav{display:flex;align-items:center;gap:6px}
-.nav a{color:var(--text);text-decoration:none;font-size:13.5px;font-weight:600;text-transform:uppercase;letter-spacing:.02em;padding:10px 11px;position:relative;white-space:nowrap}
-.nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
+/* Header mirrors alarmcoinc.com: centered logo on white, red #nav-row (#EA1026) with white uppercase links */
+.logo-band{background:#fff;display:flex;align-items:center;justify-content:center;height:100px}
+.logo img{width:min(400px,76vw);height:auto}
+.navbar{position:sticky;top:0;z-index:50;background:var(--red);box-shadow:0 3px 14px rgba(0,0,0,.18)}
+.nb-in{display:flex;align-items:center;justify-content:center;min-height:60px}
+.nav{display:flex;align-items:center;justify-content:center;flex-wrap:nowrap;gap:0 2px}
+.nav a{color:#fff;text-decoration:none;font-size:14.5px;font-weight:500;text-transform:uppercase;padding:18px 10px;position:relative;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;transition:background .2s}
+.nav a:hover{color:#fff;background:rgba(0,0,0,.12)}
+.nav a::after{content:"";position:absolute;left:10px;right:10px;bottom:10px;height:2px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
 .nav a:hover::after,.nav a[aria-current="page"]::after{transform:scaleX(1)}
-.nav .btn{margin-left:10px}
-.menu-btn{display:none;width:46px;height:46px;border:1px solid var(--line);background:#fff;align-items:center;justify-content:center;cursor:pointer}
-@media (max-width:1180px){
-  .nav{position:fixed;inset:0 0 0 auto;width:min(86vw,360px);flex-direction:column;align-items:stretch;background:var(--ink);padding:90px 24px 24px;gap:0;transform:translateX(100%);visibility:hidden;transition:transform .3s var(--ease),visibility 0s linear .3s;z-index:60}
-  .nav.open{visibility:visible;transition:transform .3s var(--ease),visibility 0s}
-  .nav.open{transform:none;box-shadow:-20px 0 60px rgba(0,0,0,.4)}
-  .nav a{color:#fff;padding:16px 4px;border-bottom:1px solid var(--line-dark);font-size:15px}
+.nav a[aria-current="page"]{font-weight:700}
+.nav .car{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #fff}
+.nav .nav-cta{display:none}
+.menu-btn{display:none;min-height:48px;padding:0 14px;border:0;background:transparent;color:#fff;align-items:center;gap:10px;font:600 15px Inter,sans-serif;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+@media (max-width:1320px){.nav a{font-size:13.5px;padding:18px 8px}.nav a::after{left:8px;right:8px}}
+@media (max-width:1100px){
+  .nb-in{justify-content:flex-start;min-height:52px}
+  .nav{position:fixed;inset:0 0 0 auto;width:min(86vw,360px);flex-direction:column;flex-wrap:nowrap;align-items:stretch;background:var(--ink);padding:90px 24px 24px;gap:0;transform:translateX(100%);visibility:hidden;transition:transform .3s var(--ease),visibility 0s linear .3s;z-index:60;overflow-y:auto}
+  .nav.open{visibility:visible;transform:none;box-shadow:-20px 0 60px rgba(0,0,0,.4);transition:transform .3s var(--ease),visibility 0s}
+  .nav a{padding:15px 4px;border-bottom:1px solid var(--line-dark);font-size:15px;justify-content:space-between}
   .nav a::after{display:none}
-  .nav .btn{margin:18px 0 0;text-align:center;justify-content:center}
+  .nav a[aria-current="page"]{color:#fff;box-shadow:inset 3px 0 0 var(--red);padding-left:12px}
+  .nav .nav-cta{display:flex;justify-content:center;margin-top:18px;background:var(--red-d);border:0;min-height:50px}
   .menu-btn{display:inline-flex;position:relative;z-index:70}
-  .menu-btn.open{background:var(--ink);border-color:var(--ink);color:#fff}
-  .logo img{width:190px}
-  .site-head .wrap{height:64px}
+  .menu-btn.open{position:fixed;top:14px;right:14px;background:var(--red-d);z-index:70}
+  .logo-band{height:76px}
   .util .tag{display:none}
 }
-
 /* ---------- sub nav ---------- */
 .subnav{background:var(--soft);border-bottom:1px solid var(--line)}
 .subnav .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}

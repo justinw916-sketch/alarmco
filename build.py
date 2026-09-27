@@ -55,19 +55,21 @@ def header(active):
   <span class="tag">Home to Idaho's only local UL-listed central station</span>
   <a href="{TEL}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2a15 15 0 0 1-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>{PHONE}</a>
 </div></div>
-<header class="site-head"><div class="wrap">
-  <a class="logo" href="index.html" aria-label="Alarmco Technology Solutions home"><img src="assets/img/logo.webp" alt="Alarmco, Inc." width="400" height="55"></a>
-  <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<div class="logo-band"><a class="logo" href="index.html" aria-label="Alarmco Technology Solutions home"><img src="assets/img/logo.webp" alt="Alarmco, Inc." width="400" height="55"></a></div>
+<div class="navbar"><div class="wrap nb-in">
+  <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></button>
   <nav class="nav" id="nav" aria-label="Main">
     <a href="{REAL}/">Home</a>
-    <a href="{REAL}/products-and-services/">Products</a>
+    <a href="{REAL}/products-and-services/">Products and Services <span class="car" aria-hidden="true"></span></a>
     <a href="index.html" aria-current="page">Technology Solutions</a>
-    <a href="{REAL}/remote-guard-service-rgs/">Remote Guard</a>
-    <a href="{REAL}/about/">About</a>
+    <a href="{REAL}/remote-guard-service-rgs/">Remote Guard Service (RGS)</a>
+    <a href="{REAL}/about/">About <span class="car" aria-hidden="true"></span></a>
+    <a href="{REAL}/blog/">Blog</a>
     <a href="{REAL}/contact/">Contact</a>
-    <a class="btn sm" href="index.html#assessment">Free Assessment</a>
+    <a href="https://sedonaweb.alarmcoinc.com/login.aspx">Pay Bill</a>
+    <a class="nav-cta" href="index.html#assessment">Free Site Assessment</a>
   </nav>
-</div></header>
+</div></div>
 <nav class="subnav" aria-label="Technology Solutions"><div class="wrap">
 {''.join(f'<a href="{f}"' + (' aria-current="page"' if s == active else '') + f'>{l}</a>' for s, l, f in PAGES)}
 </div></nav>
