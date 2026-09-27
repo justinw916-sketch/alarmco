@@ -20,6 +20,7 @@ PAGES = [  # (slug, short label, file)
     ("cabling", "Structured Cabling", "structured-cabling.html"),
     ("entrance", "Entrance Control", "entrance-control.html"),
     ("integration", "System Integration", "integration.html"),
+    ("monitoring", "24/7 Monitoring", "monitoring.html"),
 ]
 
 def head(title, desc):
@@ -175,6 +176,7 @@ def index():
         ("03", "structured-cabling.html", "construction.webp", "Commercial building under construction", "Structured Cabling", "Category 6/6A copper, fiber backbones and telecom rooms, tested, labeled and documented."),
         ("04", "entrance-control.html", "lock-banner.webp", "Secure entry graphic", "Entrance Control", "Optical turnstiles, speed lanes and security entrances that stop tailgating at the front door."),
         ("05", "integration.html", "console.webp", "Operators at a security console", "Multi-System Integration", "Video, doors, intrusion, fire and intercom working as one system, monitored from Boise."),
+        ("06", "monitoring.html", "operator.webp", "Operator watching live camera feeds", "24/7 Monitoring", "Monthly monitoring from Idaho's only local UL-listed central station: alarms, fire, sprinklers and live video."),
     ]
     sol = "".join(f"""<a class="sol rv d{i%3}" href="{h}"><div class="ph"><img src="assets/img/{img}" alt="{alt}" loading="lazy"><span class="num">{n}</span>{SOON if n == '04' else ''}</div>
 <div class="bd"><h3>{t}</h3><p>{d}</p><span class="more">Explore {ARROW}</span></div></a>""" for i, (n, h, img, alt, t, d) in enumerate(solutions))
@@ -257,6 +259,20 @@ def index():
   </div>
 </div></section>
 
+<section class="sec mon"><div class="wrap split">
+  <div class="mon-ph rv"><img src="assets/img/operator.webp" alt="Alarmco operator watching live camera feeds" loading="lazy"><span class="mon-live"><i></i>Answered in Boise, 24/7</span></div>
+  <div class="copy rv d1">
+    <div><div class="eyebrow">Monthly Monitoring</div><h2 class="h2">Watched From Boise, Every Minute of Every Day</h2></div>
+    <p class="lede">Installation is day one. Monitoring is every day after. Your alarms, fire and sprinkler signals and cameras report to Idaho's only local UL-listed central station, staffed by people who know the Treasure Valley.</p>
+    <ul class="mon-chips">
+      <li>Intrusion alarm monitoring {NOW}</li><li>Fire &amp; sprinkler monitoring {NOW}</li>
+      <li>Remote Guard Service (live video) {NOW}</li><li>Remote management &amp; alerts {NOW}</li>
+      <li>Managed access control {SOON}</li><li>Camera &amp; system health checks {SOON}</li>
+    </ul>
+    <div><a class="btn" href="monitoring.html">See Monitoring Plans {ARROW}</a></div>
+  </div>
+</div></section>
+
 <section class="sec soft"><div class="wrap">
   {sec_head("Manufacturer Partners", "Open Platforms, Not Lock-In", "We build on open, standards-based systems, so your cameras, readers and software can be expanded, serviced or reused later instead of ripped out.")}
   <div class="grid g4">{part}</div>
@@ -310,7 +326,7 @@ def cctv():
 <section class="phero band"><img src="assets/img/operator.webp" alt=""><div class="wrap">
   <div class="eyebrow">Take It Further</div><h2 class="h2">Pair Your Cameras With Remote Guard Service</h2>
   <p>Turn recorded video into live protection. Our operators watch your cameras in real time and respond before a break-in becomes a loss.</p>
-  <a class="btn" href="{REAL}/remote-guard-service-rgs/">Explore RGS {ARROW}</a>
+  <a class="btn" href="monitoring.html">See Monitoring Plans {ARROW}</a>
 </div></section>
 {cta("Not Sure What Your Cameras Are Missing?", "Our free site assessment shows exactly where your coverage falls short, and what it takes to fix it.")}"""
     return page("cctv", "Video Surveillance | Alarmco, Inc. (Concept)", "Commercial camera systems from Alarmco in Boise: Axis, exacqVision, i-PRO and Digital Watchdog.", body)
@@ -546,11 +562,63 @@ def integration():
 {cta("Tired of Juggling Security Apps?", "We will map what you have today and show you how to bring it together, often without replacing it.", "Map My Systems")}"""
     return page("integration", "Multi-System Integration | Alarmco, Inc. (Concept)", "Video, access, intrusion, fire and intercom integrated and monitored from Boise by Alarmco.", body)
 
+def monitoring():
+    flow = [("Your building", "Alarm panel, fire panel, sprinkler switches and cameras"),
+            ("Signal paths", "Phone line, AES radio, internet, cellular and GSM"),
+            ("Boise central station", "UL-listed, local, staffed 24 hours a day"),
+            ("Verify", "Video check and your call list, so real events get fast action"),
+            ("Respond", "Police or fire dispatched, your people notified, event logged")]
+    fl = "".join(f'<li class="rv d{i%5}"><span class="fn">{i+1:02d}</span><h3>{h}</h3><p>{t}</p></li>' for i, (h, t) in enumerate(flow))
+    plans = [
+        ("Intrusion Alarm Monitoring", "Burglar alarm, panic and hold-up signals answered around the clock.", ["24/7 UL-listed central station in Boise", "Multiple communication paths so one cut line does not blind the system", "Open/close and event reports", "Call list and passcode management"], True),
+        ("Fire &amp; Sprinkler Monitoring", "Alarm, supervisory and trouble signals from your fire alarm and sprinkler system.", ["Fire department dispatch on alarm", "Sprinkler valve and flow supervision", "Helps you keep code-required monitoring in place", "Pairs with our annual inspections"], True),
+        ("Remote Guard Service (RGS)", "Live video monitoring as a cost-effective alternative to on-site guards.", ["Operators watch your cameras in real time", "Respond before a break-in becomes a loss", "Round-the-clock or after-hours coverage", "Works with the cameras we install"], True),
+        ("Remote Management &amp; Alerts", "Full control of your security system from anywhere, at any time.", ["Real-time alerts to your phone", "Arm, disarm and check status remotely", "Comprehensive activity reporting", "Changes handled by our local team"], True),
+        ("Managed Access Control", "We host and administer your card access so you do not need an in-house admin.", ["Add or remove badges on request", "Schedule and holiday changes", "Monthly who-went-where audit reports", "Lockdown support from the central station"], False),
+        ("Camera &amp; System Health Checks", "We watch your equipment, not just your building.", ["Offline camera and recorder alerts", "Storage and recording failure detection", "Controller and panel trouble tracking", "A technician scheduled before you notice"], False),
+    ]
+    pl = "".join(plat(n, "Monthly plan &middot; ask for pricing", d, f, now, "Includes") for n, d, f, now in plans)
+    body = phero("operator.webp", "Operator watching live camera feeds at a monitoring desk", "24/7 Monitoring", "24/7 Monitoring From Boise, Not a Call Center Three States Away",
+                 "When your alarm goes off at 2 a.m., the person who answers is in Boise. Monthly monitoring for alarms, fire and sprinkler systems and live video, from Idaho's only local UL-listed central station.", "Get a Monitoring Quote") + f"""
+<section class="stats"><div class="wrap grid g4">
+  <div class="stat rv"><div class="sv">24/7</div><div class="sl">Staffed every hour of the year</div></div>
+  <div class="stat rv d1"><div class="sv">UL</div><div class="sl">Listed central station</div></div>
+  <div class="stat rv d2"><div class="sv">5</div><div class="sl">Signal paths supported</div></div>
+  <div class="stat rv d3"><div class="sv" data-count="1994">1994</div><div class="sl">Monitoring Idaho since</div></div>
+</div></section>
+<section class="sec"><div class="wrap split">
+  <div class="copy rv"><div><div class="eyebrow">Why Local Matters</div><h2 class="h2">The Difference Between a Response and a Ticket Number</h2></div>
+    <p class="lede">Many monitoring providers answer signals from call centers outside Idaho. Ours are answered in Boise by operators who know the roads, the police and fire agencies, and your building.</p>
+    {checks(["Idaho's only local UL-listed 24-hour central station", "Operators who know Treasure Valley agencies and addresses", "One company for installation, service and monitoring", "The same local team handles your system changes and repairs", "In many cases, existing panels can be switched over without replacing equipment"])}
+  </div>
+  <img class="rv d1" src="assets/img/ops-wall.webp" alt="Operators monitoring a wall of live screens" loading="lazy">
+</div></section>
+<section class="sec dark"><div class="wrap">
+  {sec_head("How a Signal Is Handled", "From Your Building to a Response in Seconds")}
+  <ol class="sflow">{fl}</ol>
+  <div class="paths rv"><span class="pl">Signal paths we receive</span><span>POTS phone lines</span><span>AES radio</span><span>Internet</span><span>Cellular</span><span>GSM</span></div>
+</div></section>
+<section class="sec soft"><div class="wrap">
+  {sec_head("Monthly Plans", "Monitoring Built Around Your Building", "Pick what you need, bundle what makes sense. Every plan is answered in Boise.")}
+  <div class="grid g3 plans">{pl}</div>
+  <p class="note">Plans marked Coming Soon are being added. Monthly pricing depends on the systems monitored; ask us for a quote.</p>
+</div></section>
+<section class="sec"><div class="wrap">
+  {sec_head("Install + Monitor", "One Contract, One Call")}
+  <div class="grid g3 why">
+    <div class="rv"><h3>Designed to Be Monitored</h3><p>Cameras, doors and panels are programmed for monitoring from day one, not bolted on later.</p></div>
+    <div class="rv d1"><h3>Fewer False Dispatches</h3><p>Video verification and a clean call list mean real events get the fastest possible response.</p></div>
+    <div class="rv d2"><h3>Service Built In</h3><p>When the central station sees a trouble signal, the same company that installed it sends the technician.</p></div>
+  </div>
+</div></section>
+{cta("Already Have a System? Let Boise Watch It.", "Tell us what you have. We will tell you what it takes to put it on local, UL-listed monitoring.", "Get a Monitoring Quote")}"""
+    return page("monitoring", "24/7 Monitoring | Alarmco, Inc. (Concept)", "Monthly alarm, fire, sprinkler and video monitoring from Idaho's only local UL-listed central station in Boise.", body)
+
 def build():
     if DIST.exists(): shutil.rmtree(DIST)
     shutil.copytree(SRC, DIST)
     for fn, html in [("index.html", index()), ("video-surveillance.html", cctv()), ("card-access.html", access()),
-                     ("structured-cabling.html", cabling()), ("entrance-control.html", entrance()), ("integration.html", integration())]:
+                     ("structured-cabling.html", cabling()), ("entrance-control.html", entrance()), ("integration.html", integration()), ("monitoring.html", monitoring())]:
         (DIST / fn).write_text(html, encoding="utf-8")
     (DIST / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
     (DIST / "_headers").write_text("/*\n  X-Robots-Tag: noindex, nofollow\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n")
